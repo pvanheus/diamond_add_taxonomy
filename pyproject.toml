@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "ncbi_taxid"
 version = "0.1.0"
-description = "Tools for working with the NCBI taxonomy database"
+description = "Tools for working with the NCBI taxonomy database (and DIAMOND output)"
 authors = ["Peter van Heusden <pvh@sanbi.ac.za>"]
+license = 'MIT'
+repository = "https://github.com/pvanheus/diamond_add_taxonomy"
 
 [tool.poetry.dependencies]
 python = "^3.6"
