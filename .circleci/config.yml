@@ -3,7 +3,10 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6
-
+        environment:
+          NCBI_TAX_DB: data/taxdb.sqlite3
+          NCBI_TAXDUMP_FILE: data/taxdump.tar.gz
+          
     steps:
       - checkout
 
@@ -15,22 +18,28 @@ jobs:
       - run: 
           name: install poetry
           command: |
-            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-            ~/.poetry/bin/poetry install
+            if [[ ! -d ~/.poetry ]] ; then 
+              curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+              ~/.poetry/bin/poetry install
+            fi
 
       - run:
           name: download NCBI taxonomy database
           command: |
-            mkdir data
-            curl --output data/taxdump.tar.gz https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
-            curl --output data/taxdump.tar.gz.md5 https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz.md5
-            cd data
-            md5sum -c taxdump.tar.gz.md5
+            if [[ ! -d data/ ]] ; then 
+              mkdir data
+              curl --output data/taxdump.tar.gz https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
+              curl --output data/taxdump.tar.gz.md5 https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz.md5
+              cd data
+              md5sum -c taxdump.tar.gz.md5
+            fi
 
       - run:
           name: generate sqlite3 taxdb database
           command: |
-            ~/.poetry/bin/poetry run python -c 'from ncbi_taxid.taxid_utils import TaxIDExpander; t = TaxIDExpander(taxdump_filename="data/taxdump.tar.gz", taxdb_filename="data/taxdb.sqlite3")'
+            if [[ ! -f $NCBI_TAXDB_FILE ]] ; then
+              ~/.poetry/bin/poetry run python -c "from ncbi_taxid.taxid_utils import TaxIDExpander; t = TaxIDExpander(taxdump_filename='$NCBI_TAXDUMP_FILE', taxdb_filename='$NCBI_TAX_DB')"
+            fi
 
       - save_cache:
           key: v1-dependencies-{{ checksum "pyproject.toml" }}
@@ -41,7 +50,5 @@ jobs:
       - run:
           name: run tests
           command:
-            export NCBI_TAX_DB=data/taxdb.sqlite3 ; 
-            export NCBI_TAXDUMP_FILE=data/taxdump.tar.gz ;
             ~/.poetry/bin/poetry run pytest
   
