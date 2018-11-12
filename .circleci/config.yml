@@ -41,7 +41,7 @@ jobs:
       - run:
           name: run tests
           command:
-            export NCBI_TAX_DB=data/taxdb.sqlite3
-            export NCBI_TAXDUMP_FILE=data/taxdump.tar.gz
+            export NCBI_TAX_DB=data/taxdb.sqlite3 ; 
+            export NCBI_TAXDUMP_FILE=data/taxdump.tar.gz ;
             ~/.poetry/bin/poetry run pytest
   
