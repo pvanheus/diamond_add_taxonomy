@@ -24,7 +24,7 @@ def annotate_diamond(diamond_output_file: TextIO,
                      taxdb_filename: Optional[str] = None):
     """annotate_diamond - add lineage info to DIAMOND output file that includes staxids
 
-    A new output file is created with 7 extra columns on the right hand side that 
+    A new output file is created with 7 extra columns on the right hand side that
     contain the standard ranks superkingdom, phylym, class, order, family, genus and species
     corresponding to the NCBI taxid in the staxids column.
 

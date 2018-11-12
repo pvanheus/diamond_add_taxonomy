@@ -32,6 +32,7 @@ BOT1cds2	POZ52851.1	25.6	270	178	8	1	258	10	268	4.9e-08	68.2	295	275	93.8	POZ528
 BOT1cds2	WP_103973803.1	25.6	270	178	8	1	258	1	259	4.9e-08	68.2	286	275	93.8	WP_103973803.1 hypothetical protein [Methylovulum psychrotolerans]	1704499	Bacteria	Proteobacteria	Gammaproteobacteria	Methylococcales	Methylococcaceae	Methylovulum	Methylovulum psychrotolerans
 """
 
+
 def test_version():
     assert __version__ == "0.1.0"
 
@@ -49,12 +50,12 @@ def test_annotate_diamond():
         output_temp_filename = output_file.name
         diamond_output_format = "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qlen qcovhsp stitle staxids"
         runner = CliRunner()
-        runner.invoke(ncbi_taxid.cli.annotate_diamond, 
+        runner.invoke(ncbi_taxid.cli.annotate_diamond,
                       ['--diamond_output_format', diamond_output_format,
                        '--output_file', output_temp_filename,
                        '--taxdb_filename', taxdb_path.as_posix(),
                        input_filename])
-        
+
         os.unlink(input_filename)
         result = open(output_temp_filename).read()
         os.unlink(output_temp_filename)

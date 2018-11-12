@@ -6,6 +6,7 @@ jobs:
         environment:
           NCBI_TAX_DB: data/taxdb.sqlite3
           NCBI_TAXDUMP_FILE: data/taxdump.tar.gz
+          TEST_LONG_RUNNING: yes
           
     steps:
       - checkout
