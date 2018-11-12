@@ -45,7 +45,8 @@ Options:
 
 #### installation
 
-`pip install ncbi_taxid` or install from [bioconda](https://bioconda.github.io/) with `conda install ncbi_taxid`.
+`pip install ncbi_taxid` or install from Docker on [quay.io](https://quay.io/repository/pvanheus/diamond_add_taxonomy) or use Singularity (an image is available
+on the SANBI cluster).
 
 #### build status
 
