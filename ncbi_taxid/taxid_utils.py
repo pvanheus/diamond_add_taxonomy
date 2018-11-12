@@ -23,7 +23,7 @@ class TaxIDExpander(object):
             else:
                 # we have a taxdump file and no taxdb file
                 # this means we load from the taxdump file and let ete3 save to its default location
-                self.ncbi = NCBITaxa(taxdump_file=taxdb_filename)
+                self.ncbi = NCBITaxa(taxdump_file=taxdump_filename)
         else:
             if taxdb_filename is not None:
                 # we have a taxdb file and no taxdump file
@@ -47,7 +47,7 @@ class TaxIDExpander(object):
             taxid(str): NCBI taxonomy ID
             only_standard_ranks(bool): if True only return superkingdom, phylum, class, order, family, genus and species ranks
         Returns:
-            list of tuples where the tuples have members (taxon name, taxon rank)"""
+            list of tuples where the tuples have members (taxon rank, taxon name)"""
         lineage_ids = self.ncbi.get_lineage(taxid)
         names = self.ncbi.get_taxid_translator(lineage_ids)
         ranks = self.ncbi.get_rank(lineage_ids)
@@ -58,5 +58,12 @@ class TaxIDExpander(object):
             rank = ranks[id]
             if only_standard_ranks and rank not in standard_ranks:
                 continue
-            lineage.append((names[id], ranks[id]))
+            lineage.append((ranks[id], names[id]))
         return lineage
+
+    def get_scientific_name(self, taxid: str):
+        results = self.ncbi.translate_to_names([taxid])
+        if not results:
+            return 'UNKNOWN'
+        else:
+            return results[0]
