@@ -41,11 +41,25 @@ def test_load_from_db():
 
 
 def test_load_from_taxdump():
-    taxdump_path = Path(os.environ.get('NCBI_TAXDUMP_FILE', ''))
-    if not (taxdump_path.exists() and taxdump_path.is_file()):
-        pytest.skip("set NCBI_TAXDUMP_FILE to the filename of a file the taxdump.tar.gz from the NCBI taxonomy database")
+    test_long_running = os.environ.get('TEST_LONG_RUNNING', False)
+    if not test_long_running:
+        pytest.skip("skip long running test")
     else:
-        taxdump_filename = taxdump_path.as_posix()
-        t = TaxIDExpander(taxdump_filename=taxdump_filename)
+        taxdump_path = Path(os.environ.get('NCBI_TAXDUMP_FILE', ''))
+        if not (taxdump_path.exists() and taxdump_path.is_file()):
+            pytest.skip("set NCBI_TAXDUMP_FILE to the filename of a file the taxdump.tar.gz from the NCBI taxonomy database")
+        else:
+            taxdump_filename = taxdump_path.as_posix()
+            t = TaxIDExpander(taxdump_filename=taxdump_filename)
+            taxdb_scientific_name(t)
+            taxdb_lineage(t)
+
+
+def test_load_from_net():
+    test_long_running = os.environ.get('TEST_LONG_RUNNING', False)
+    if not test_long_running:
+        pytest.skip("skip long running test")
+    else:
+        t = TaxIDExpander()
         taxdb_scientific_name(t)
         taxdb_lineage(t)
