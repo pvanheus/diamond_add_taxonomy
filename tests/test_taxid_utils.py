@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from ncbi_taxid import __version__
-from ncbi_taxid.taxid_utils import TaxIDExpander
+from diamond_add_taxonomy import __version__
+from diamond_add_taxonomy.taxid_utils import TaxIDExpander
 
 
 def test_version():

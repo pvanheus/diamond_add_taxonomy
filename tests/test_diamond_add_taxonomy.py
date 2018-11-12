@@ -5,8 +5,8 @@ from pathlib import Path
 from click.testing import CliRunner
 import pytest
 
-from ncbi_taxid import __version__
-import ncbi_taxid.cli
+from diamond_add_taxonomy import __version__
+import diamond_add_taxonomy.cli
 
 test_data = """BOT1cds1	PKP60081.1	29.0	138	96	2	7	143	8	144	2.5e-07	65.5	209	217	63.1	PKP60081.1 hypothetical protein CVT88_04030 [Candidatus Altiarchaeales archaeon HGW-Altiarchaeales-1]	2013673
 BOT1cds1	PJI86295.1	36.6	71	39	3	22	90	175	241	8.7e+00	40.4	295	217	31.8	PJI86295.1 4-diphosphocytidyl-2-C-methyl-D-erythritol kinase [Yoonia maricola]	420999
@@ -50,7 +50,7 @@ def test_annotate_diamond():
         output_temp_filename = output_file.name
         diamond_output_format = "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore slen qlen qcovhsp stitle staxids"
         runner = CliRunner()
-        runner.invoke(ncbi_taxid.cli.annotate_diamond,
+        runner.invoke(diamond_add_taxonomy.cli.annotate_diamond,
                       ['--diamond_output_format', diamond_output_format,
                        '--output_file', output_temp_filename,
                        '--taxdb_filename', taxdb_path.as_posix(),

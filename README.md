@@ -40,12 +40,11 @@ Options:
   --output_file FILENAME        Output file to write output with expanded
                                 taxonomy information (TSV format)
   --help                        Show this message and exit.
-(expand_ncbi_taxid) pvh@gabber:~/Documents/code/SANBI/diamond
 ```
 
 #### installation
 
-`pip install ncbi_taxid` or install from Docker on [quay.io](https://quay.io/repository/pvanheus/diamond_add_taxonomy) or use Singularity (an image is available
+`pip install diamond_add_taxonomy` or install from Docker on [quay.io](https://quay.io/repository/pvanheus/diamond_add_taxonomy) or use Singularity (an image is available
 on the SANBI cluster).
 
 #### build status
