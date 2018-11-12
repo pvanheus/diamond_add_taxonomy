@@ -18,7 +18,7 @@ jobs:
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             ~/.poetry/bin/poetry install
 
-      -run:
+      - run:
           name: download NCBI taxonomy database
           command: |
             mkdir data
