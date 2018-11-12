@@ -37,7 +37,7 @@ jobs:
       - run:
           name: generate sqlite3 taxdb database
           command: |
-            if [[ ! -f $NCBI_TAXDB_FILE ]] ; then
+            if [[ ! -f $NCBI_TAXDB ]] ; then
               ~/.poetry/bin/poetry run python -c "from ncbi_taxid.taxid_utils import TaxIDExpander; t = TaxIDExpander(taxdump_filename='$NCBI_TAXDUMP_FILE', taxdb_filename='$NCBI_TAX_DB')"
             fi
 
