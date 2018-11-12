@@ -33,12 +33,12 @@ jobs:
             ~/.poetry/bin/poetry run python -c 'from ncbi_taxid.taxid_utils import TaxIDExpander; t = TaxIDExpander(taxdump_filename="data/taxdump.tar.gz", taxdb_filename="data/taxdb.sqlite3")'
 
       - save_cache:
+          key:
+            - v1-dependencies-{{ checksum "pyproject.toml" }}
           paths:
             - ./.cache
             - ./data
-          keys:
-            - v1-dependencies-{{ checksum "pyproject.toml" }}
-
+            
       - run:
           name: run tests
           command:
