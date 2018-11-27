@@ -41,7 +41,7 @@ def annotate_diamond(diamond_output_file: TextIO,
         output_file(file) - file to write output to (default is sys.stdout)
         taxdump_filename(str) - path to NCBI taxdump.tar.gz file for the taxonomy resolver (optional)
         taxdb_filename(str) - path to a sqlite3 db created from NCBI taxdump.tar.gz by ete3 NCBITaxa"""
-    taxid_re = re.compile(r'^(\d+?)*$')
+    taxid_re = re.compile(r'^(\d+;?)*$')
     annotater = TaxIDExpander(taxdb_filename=taxdb_filename, taxdump_filename=taxdump_filename)
     assert 'staxids' in diamond_output_format, "The DIAMOND output format must include the staxids column"
     taxid_column = diamond_output_format.split().index('staxids') - 1  # the column position, minus 1 to ignore '6'
@@ -52,7 +52,7 @@ def annotate_diamond(diamond_output_file: TextIO,
         except IndexError:
             sys.exit(f"Caught an IndexError trying to retrieve taxon info from column {taxid_column}, did you use the correct --diamond_output_format?")
         if taxid_re.match(taxid) is None:
-            sys.exit(f"Taxid f{taxid} does not match expected format taxon id format, did you use the correct --diamond_output_format?")
+            sys.exit(f"Taxid {taxid} does not match expected format taxon id format, did you use the correct --diamond_output_format?")
         if taxid == '':
             # this entry is missing taxonomy id info
             lineage_info = [('', 'UNKNOWN')] * 7

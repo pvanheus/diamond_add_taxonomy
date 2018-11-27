@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "diamond_add_taxonomy"
-version = "0.1.1"
+version = "0.1.2"
 description = "Tools for working with the NCBI taxonomy database (and DIAMOND output)"
 authors = ["Peter van Heusden <pvh@sanbi.ac.za>"]
 license = 'MIT'
