@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='diamond_add_taxonomy',
-      version='0.1.0',
+      version='0.1.1',
       description='Tools for working with the NCBI taxonomy database (and DIAMOND output)',
       author='Peter van Heusden',
       author_email='pvh@sanbi.ac.za',
